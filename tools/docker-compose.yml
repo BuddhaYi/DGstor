@@ -1,0 +1,212 @@
+version: "3.3"
+services:
+  node1:
+    build: 
+      context: .
+      dockerfile: Dockerfile-rcdir
+    image: rcdir:1.0
+    container_name: node1
+    privileged: true
+    volumes:
+      - /mnt/data/genData:/home/data
+    ports:
+      - "3316:22"
+      - "30889:30888"
+      - "30101:30100"
+      - "8081:8080"
+    tty: true
+  node2:
+    build:
+      context: .
+      dockerfile: Dockerfile-rcstor
+    image: rcstor:1.0
+    container_name: node2
+    privileged: true
+    ports:
+      - "3317:22"
+      - "30890:30888"
+      - "30102:30100"
+      - "8082:8080"
+    tty: true
+    depends_on:
+      - node1
+  node3:
+    image: rcstor:1.0
+    container_name: node3
+    privileged: true
+    ports:
+      - "3318:22"
+      - "30891:30888"
+      - "30103:30100"
+      - "8083:8080"
+    tty: true
+    depends_on:
+      - node2
+  node4:
+    image: rcstor:1.0
+    container_name: node4
+    privileged: true
+    ports:
+      - "3319:22"
+      - "30892:30888"
+      - "30104:30100"
+      - "8084:8080"
+    tty: true
+    depends_on:
+      - node3
+  node5:
+    image: rcstor:1.0
+    container_name: node5
+    privileged: true
+    ports:
+      - "3320:22"
+      - "30893:30888"
+      - "30105:30100"
+      - "8085:8080"
+    tty: true
+    depends_on:
+      - node4
+  node6:
+    image: rcstor:1.0
+    container_name: node6
+    privileged: true
+    ports:
+      - "3321:22"
+      - "30894:30888"
+      - "30106:30100"
+      - "8086:8080"
+    tty: true
+    depends_on:
+      - node5
+  node7:
+    image: rcstor:1.0
+    container_name: node7
+    privileged: true
+    ports:
+      - "3322:22"
+      - "30895:30888"
+      - "30107:30100"
+      - "8087:8080"
+    tty: true
+    depends_on:
+      - node6
+  node8:
+    image: rcstor:1.0
+    container_name: node8
+    privileged: true
+    ports:
+      - "3323:22"
+      - "30896:30888"
+      - "30108:30100"
+      - "8088:8080"
+    tty: true
+    depends_on:
+      - node7
+  node9:
+    image: rcstor:1.0
+    container_name: node9
+    privileged: true
+    ports:
+      - "3324:22"
+      - "30897:30888"
+      - "30109:30100"
+      - "8089:8080"
+    tty: true
+    depends_on:
+      - node8
+  node10:
+    image: rcstor:1.0
+    container_name: node10
+    privileged: true
+    ports:
+      - "3325:22"
+      - "30898:30888"
+      - "30110:30100"
+      - "8090:8080"
+    tty: true
+    depends_on:
+      - node9
+  node11:
+    image: rcstor:1.0
+    container_name: node11
+    privileged: true
+    ports:
+      - "3326:22"
+      - "30899:30888"
+      - "30111:30100"
+      - "8091:8080"
+    tty: true
+    depends_on:
+      - node10
+  node12:
+    image: rcstor:1.0
+    container_name: node12
+    privileged: true
+    ports:
+      - "3327:22"
+      - "30900:30888"
+      - "30112:30100"
+      - "8092:8080"
+    tty: true
+    depends_on:
+      - node11
+  node13:
+    image: rcstor:1.0
+    container_name: node13
+    privileged: true
+    ports:
+      - "3328:22"
+      - "30901:30888"
+      - "30113:30100"
+      - "8093:8080"
+    tty: true
+    depends_on:
+      - node12
+  node14:
+    image: rcstor:1.0
+    container_name: node14
+    privileged: true
+    ports:
+      - "3329:22"
+      - "30902:30888"
+      - "30114:30100"
+      - "8094:8080"
+    tty: true
+    depends_on:
+      - node13
+  node15:
+    image: rcstor:1.0
+    container_name: node15
+    privileged: true
+    ports:
+      - "3330:22"
+      - "30903:30888"
+      - "30115:30100"
+      - "8095:8080"
+    tty: true
+    depends_on:
+      - node14
+  node16:
+    image: rcstor:1.0
+    container_name: node16
+    privileged: true
+    ports:
+      - "3331:22"
+      - "30904:30888"
+      - "30116:30100"
+      - "8096:8080"
+    tty: true
+    depends_on:
+      - node15
+  node17:
+    image: rcstor:1.0
+    container_name: node17
+    privileged: true
+    ports:
+      - "3332:22"
+      - "30905:30888"
+      - "30117:30100"
+      - "8097:8080"
+    tty: true
+    depends_on:
+      - node16

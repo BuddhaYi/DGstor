@@ -1,0 +1,69 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.so.*
+*.dylib
+*.deb
+*.rpm
+*.apk
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+*.cover
+
+# Go workspace file
+go.work
+
+# Dependency directories
+vendor/
+
+# IDE and editor config
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+*.iml
+
+# Build artifacts
+bin/
+dist/
+build/
+out/
+
+# Object files and archives
+*.o
+*.a
+*.so
+*.dylib
+
+# Data and samples
+data/
+scripts/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# OS specific
+Thumbs.db
+.vscode-server/
+
+# Project specific
+*.mov
+*.MOV
+*.mp4

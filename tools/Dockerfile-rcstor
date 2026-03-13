@@ -1,0 +1,25 @@
+FROM bitnami/centos-base-buildpack:7-r9
+MAINTAINER tianyi<tianyi520theworld@163.com>
+ENV MYPATH /usr/local
+WORKDIR /root
+RUN yum -y update && yum install -y sshpass && echo y|yum install vim \
+&& echo y|yum install openssh-client openssh-server 
+RUN echo "root:111" | chpasswd  \
+&& sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
+&& sed -i 's/^#\(PermitRootLogin.*\)/\1/' /etc/ssh/sshd_config
+RUN ssh-keygen -t rsa -N "" -f /etc/ssh/ssh_host_rsa_key && ssh-keygen -t ecdsa -N "" -f /etc/ssh/ssh_host_ecdsa_key && ssh-keygen -t ed25519 -N "" -f /etc/ssh/ssh_host_ed25519_key && /usr/sbin/sshd && yum -y remove wget
+
+EXPOSE 30100 30888 22 8080
+
+COPY start_ssh.sh /root/start_ssh.sh
+RUN chmod +x /usr/sbin/sshd
+RUN sed -i '$a\if [ -f /root/start_ssh.sh ]; then ' /root/.bashrc \
+&& sed -i '$a\     . /root/start_ssh.sh' /root/.bashrc \
+&& sed -i '$a\fi' /root/.bashrc
+
+CMD echo "success----0K"
+CMD ssh-keygen -b 4096 -N "" -f /root/.ssh/id_rsa && /bin/bash
+
+
+
+
