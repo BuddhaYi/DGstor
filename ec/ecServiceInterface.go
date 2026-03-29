@@ -41,6 +41,8 @@ func MakeECService(pool *dir.VolumeConnectionPool) ECServiceInterface {
 		return MakeStripedLRCService(pool)
 	case common.Hitchhiker:
 		return MakeHitchhikerService(pool)
+	case common.GeoPartition:
+		return MakeGeoPartitionService(pool)
 	}
 	return nil
 }

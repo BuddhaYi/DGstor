@@ -54,6 +54,7 @@ const (
 	RS                = "RS"
 	LRC               = "LRC"
 	Hitchhiker        = "Hitchhiker"
+	GeoPartition      = "GeoPartition"
 )
 
 type Status int

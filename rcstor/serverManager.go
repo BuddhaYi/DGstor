@@ -60,6 +60,9 @@ func StartServer(volumeName,workspace,dirAddr string) {
 		port = startStorageServerLocal(path,&index.StripedIndexConstructor{K: para.K,StripSize: para.BlockSize}, storage)
 	case common.StripeMax:
 		port = startStorageServerLocal(path,&index.StripedMaxIndexConstructor{K: para.K,Alignment: para.Alignment}, storage)
+	case common.GeoPartition:
+		partitioner := &index.GeometricPartitioner{Base: para.GeometricBase,MinBlock: para.MinBlockSize,MaxBlock: para.MaxBlockSize}
+		port = startStorageServerLocal(path,&index.GeoPartitionIndexConstructor{K: para.K,Partitioner:*partitioner}, storage)
 	}
 
 	args.Dir = workspace

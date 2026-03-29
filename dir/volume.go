@@ -140,6 +140,9 @@ func (p *VolumeParameter) EffectiveLocalRedundancy() int {
 
 // TotalBricksPerPG returns the total number of bricks needed per placement group.
 func (p *VolumeParameter) TotalBricksPerPG() int {
+	if p.Layout == common.GeoPartition {
+		return p.K + p.Redundancy
+	}
 	loc := p.EffectiveLocalRedundancy()
 	return p.K + p.Redundancy + loc*p.LocalParityPerGroup()
 }
