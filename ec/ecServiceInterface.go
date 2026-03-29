@@ -117,6 +117,7 @@ func getDataBySizes(args *stor.GetBatchDataArgs, conn *common.Connection, bufPoo
 					time.Sleep(time.Second)
 					break
 				}
+				simulateNetworkDelay(sizes[bufferRead])
 				ret <- buffer
 				bufferRead ++
 			}
@@ -133,6 +134,14 @@ func getDataBySizes(args *stor.GetBatchDataArgs, conn *common.Connection, bufPoo
 	return ret
 }
 
+func simulateNetworkDelay(dataSize uint32) {
+	if !common.MockNetworkEnabled {
+		return
+	}
+	transferDelay := time.Duration(float64(dataSize) / float64(common.MockNetworkBandwidth) * float64(time.Second))
+	time.Sleep(common.MockNetworkRTT + transferDelay)
+}
+
 func getData(args *stor.GetBatchDataArgs, conn *common.Connection, bufPool *common.IOBufferPool) common.IOBuffer {
 
 	total := uint32(0)
@@ -146,7 +155,9 @@ func getData(args *stor.GetBatchDataArgs, conn *common.Connection, bufPool *comm
 	//TODO:测试生成检验需要取出的数据
 	readNext<-true
 
-	return <-ch
+	buf := <-ch
+	simulateNetworkDelay(total)
+	return buf
 }
 
 func putSlide(data common.IOBuffer, offset, size uint64, offsetInBlock uint64, blockId int16, PGId uint32, conn *common.Connection) error {

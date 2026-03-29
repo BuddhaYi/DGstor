@@ -9,10 +9,10 @@ const StorFilePath = "/usr/local/bin/rcstor"
 const DefaultDirPort = 30100
 const HeartBeatInterval = time.Second * 5
 //TODO:控制trace对象的数量和大小范围
-const SSDMaxSize uint64 = 2 << 20  //4 << 20
-const HDDMaxSize uint64 = 512 * 1024 * 1024    // 4 << 30 = 4G要特别注意
-const HDDNumObjects uint64 = 1
-const SSDNumObjects uint64 = 1
+const SSDMaxSize uint64 = 4 << 20
+const HDDMaxSize uint64 = 512 * 1024 * 1024 // 512MB (scaled down from 4GB for disk space)
+const HDDNumObjects uint64 = 100
+const SSDNumObjects uint64 = 10000
 const LargeObjectThreshold uint64 = 4194304
 const DefaultHTTPPort = 30888
 const ForegroundClients = 8
@@ -30,6 +30,13 @@ const MaxTCPPerConn = 16
 //2Gbps = 2 << 27
 //4Gbps = 4 << 27
 const MaxClientBandwidth uint64 =  (1<<27)
+
+// Mock network latency for simulating real multi-node deployment on a single machine.
+// In a real cluster, each brick access involves network RTT + data transfer delay.
+// Set MockNetworkEnabled = false to disable simulation.
+const MockNetworkEnabled = true
+const MockNetworkRTT = time.Microsecond * 200        // 0.2ms per brick access (same-rack RTT)
+const MockNetworkBandwidth uint64 = 1 * (1 << 30) / 8 // 1Gbps = 125MB/s in bytes/sec
 const DelayAccess int = 10000
 
 const rpcReconnectTimeout = time.Second
